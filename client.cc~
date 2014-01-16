@@ -1,0 +1,106 @@
+#include "proto.hh"
+#include <iostream>
+#include <cstdlib>
+#include "netez/command_processor.hh"
+#include <boost/lexical_cast.hpp>
+
+namespace chat
+{
+  using namespace std;
+  using namespace netez;
+  
+  string nickname;
+
+  struct session_on_client: public session_base
+  {
+    session_on_client(socket& io): session_base(io)
+    {
+      sig_begin.connect(EZMETHOD(this,on_begin));
+      proto.joined.sig_recv.connect(EZMETHOD(this,do_joined));
+      proto.left.sig_recv.connect(EZMETHOD(this,do_left));
+      proto.said.sig_recv.connect(EZMETHOD(this,do_said));
+      proto.sent.sig_recv.connect(EZMETHOD(this,do_sent));
+      proto.ERR.sig_recv.connect(EZMETHOD(this,do_ERR));
+      proto.OK.sig_recv.connect(EZMETHOD(this,do_OK));
+      proto.quit.sig_recv.connect(EZMETHOD(this,do_quit));
+    }
+
+    void on_begin(){
+      cout<<"Enter 'nick' and then your nickname"<<endl;
+    }
+
+    void do_OK(){cout<<"Your message have been transmited"<<endl;
+    }
+    
+    void do_ERR(string r){cout<<"Error : "<<r<<endl;}
+    
+    void do_joined(string p){cout<<p<<" joined the the game."<<endl;}
+    
+    void do_left(string p){cout<<p<<" left the chat."<<endl;}
+    
+    void do_said(string p,string m){cout<<p<<" said : "<<m<<endl;}
+
+    void do_sent(string p, string m){cout<<p<<" said to you : "<<m<<endl;}
+
+    void do_quit(){finish();}
+  };
+
+  using boost::lexical_cast;
+
+  struct shell: public command_processor
+  {
+    session_on_client& client;
+    
+    shell(session_on_client& c):client(c)
+    {
+      register_command("nick", &shell::cmd_nick);
+      register_command("say", &shell::cmd_say);
+      register_command("send", &shell::cmd_send);
+      register_command("quit",&shell::cmd_quit);
+    }
+   
+ 
+    void wrong_args(const char*cmd,int n)
+    {cerr<<cmd<<" expects "<< n<< " arguments"<<endl;}
+
+    void cmd_nick(command_argv& argv){
+      if (argv.size()!=1) wrong_args("nick",1);
+      else {
+	string c=lexical_cast<string>(argv[0]);
+	client.proto.nick(c);
+      }
+    }
+
+    void cmd_say(command_argv& argv){
+      if (argv.size()!=1) wrong_args("say",1);
+      else{
+	string c=lexical_cast<string>(argv[0]);
+	client.proto.say(c);
+      }   
+    }
+    void cmd_send(command_argv& argv){
+      if(argv.size()!=2) wrong_args("send",2);
+      else{
+	string d=lexical_cast<string>(argv[0]);
+	string m=lexical_cast<string>(argv[1]);
+	client.proto.send(d,m);
+      }
+      
+    }
+    void cmd_quit(command_argv&){
+      client.proto.quit();
+      stop();
+    }
+  };
+    
+
+}
+
+int main(int argc, char** argv)
+{
+  netez::client<chat::session_on_client> client(argc, argv);
+  chat::shell shell(client.session);
+  shell.run();
+  client.join();
+  return 0;
+}

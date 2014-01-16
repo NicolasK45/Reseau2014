@@ -70,11 +70,11 @@ public:
   }
 
   bool use_inventory(string ob){
-    map<string,int> iterator it;
+    map<string,int>:: iterator it;
     it=inventory.find(ob);
-    if(iter!=inventory.end()){
-      if(iter->second > 0){
-	iter->second--;
+    if(it!=inventory.end()){
+      if(it->second > 0){
+	it->second--;
 	return true;
       }
     }
@@ -95,9 +95,4 @@ public:
     set_inventory("shock", 3);
   }
 };
- 
 
-int main(){
-  warrior c("Nico", 10, 3, 0, 0);
-  return 0;
-}
