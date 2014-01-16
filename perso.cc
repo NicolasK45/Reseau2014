@@ -7,12 +7,14 @@ using namespace std;
 class perso{
   int posx, posy;
   string name;
+  string class_perso;
   map<string,int> inventory;
   int hp, maxhp;
   int damage;
 public:
   perso(){
     name="";
+    class_perso="";
     maxhp=0;
     hp=0;
     damage=0;
@@ -20,8 +22,9 @@ public:
     posy=0;
   }
 
-  perso(string name,int maxhp,int damage, int x, int y){
+  perso(string name,string class_perso,int maxhp,int damage, int x, int y){
     this->name=name;
+    this->class_perso=class_perso;
     this->maxhp=maxhp;
     this->hp=maxhp;
     this->damage=damage;
@@ -41,6 +44,10 @@ public:
     return name;
   }
 
+   string get_class_perso()const{
+    return class_perso;
+  }
+
   int get_hp()const{
     return hp;
   }
@@ -53,6 +60,14 @@ public:
     return damage;
   }
 
+  void set_name(string new_name){
+    name=new_name;
+  }
+
+  void set_classe(string new_classe){
+    class_perso=new_classe;
+  }
+
   void set_inventory(string ob, int number){
     inventory[ob]=number;
   }
@@ -61,9 +76,18 @@ public:
     posx=new_posx;
   }
 
+  void set_damage(int new_damage){
+    damage=new_damage;
+  }
+
   void set_posy(int new_posy){
     posx=new_posy;
   }
+
+  void set_maxhp(int new_maxhp){
+    maxhp=new_maxhp;
+  }
+
 
   void set_hp(int new_hp){
     hp=new_hp;
@@ -74,25 +98,15 @@ public:
     it=inventory.find(ob);
     if(it!=inventory.end()){
       if(it->second > 0){
-	it->second--;
-	return true;
+        it->second--;
+	      return true;
       }
     }
     return false;
   }
-};
-
-
-class warrior:public perso{
-public:
-  warrior(){
-    perso();
+  bool operator==(perso p){
+      return this->name==p.name;
   }
 
-  warrior(string name, int maxhp, int damage, int x, int y){
-    perso(name, maxhp, damage, x, y);
-    set_inventory("breakdoor", 5);
-    set_inventory("shock", 3);
-  }
 };
 
