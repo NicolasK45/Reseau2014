@@ -13,7 +13,7 @@ namespace get_out
     message<1,void()> quit;
     message<2,void(std::string,std::string)> join;
     message<3,void(std::string,std::string)> use;
-    //message<4,void()> OK;
+    message<4,void()> OK;
     message<5,void(std::string)> ERR;
     message<6,void(std::string)> left;
     proto(socket& io): protocol<>(io), move(this), quit(this), join(this), use(this), ERR(this),left(this){}

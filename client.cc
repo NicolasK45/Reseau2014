@@ -1,5 +1,4 @@
 #include "proto.hh"
-#include "plateau.cc"
 #include <iostream>
 #include <cstdlib>
 #include "netez/command_processor.hh"
@@ -46,8 +45,8 @@ namespace get_out
     shell(session_on_client& c):client(c)
     {
       register_command("move", &shell::cmd_move);
-      /*register_command("use", &shell::cmd_say);
-	register_command("quit",&shell::cmd_quit);*/
+      register_command("use", &shell::cmd_use);
+      register_command("quit",&shell::cmd_quit);
     }
    
  
@@ -57,29 +56,27 @@ namespace get_out
     void cmd_move(command_argv& argv){
       if (argv.size()!=1) wrong_args("move",1);
       else {
-	if(argv[0]=="nord" || argv[0]=="sud" || argv[0]=="est" || argv[0]=="ouest"){ 
 	string d=lexical_cast<string>(argv[0]);
-	client.proto.move(d);
+	if(d=="nord" || d=="sud" || d=="est" || d=="ouest" || d=="here"){ 
+	  client.proto.move(d);
+	}
+	else{
+	  client.proto.ERR("vous ne pouvez pas passer par là");
 	}
       }
     }
 
-      /*void cmd_say(command_argv& argv){
-      if (argv.size()!=1) wrong_args("say",1);
+    void cmd_use(command_argv& argv){
+      if (argv.size()!=2) wrong_args("use",2);
       else{
-	string c=lexical_cast<string>(argv[0]);
-	client.proto.say(c);
+	string o=lexical_cast<string>(argv[0]);
+	string d=lexical_cast<string>(argv[1]);
+	if(d=="nord" || d=="sud" || d=="est" || d=="ouest" || d=="here"){
+	  client.proto.use(o,d);
+	}
       }   
     }
-    void cmd_send(command_argv& argv){
-      if(argv.size()!=2) wrong_args("send",2);
-      else{
-	string d=lexical_cast<string>(argv[0]);
-	string m=lexical_cast<string>(argv[1]);
-	client.proto.send(d,m);
-      }
-      
-      }*/
+
     void cmd_quit(command_argv&){
       client.proto.quit();
       stop();
@@ -87,7 +84,7 @@ namespace get_out
   };
     
 
-  };
+};
 
 int main(int argc, char** argv)
 {
