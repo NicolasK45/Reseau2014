@@ -60,6 +60,10 @@ namespace get_out
       }
     }
   }
+
+
+
+
   void session_on_server::on_end()
   {
     for (auto it=user.begin();it!=user.end();it++){
