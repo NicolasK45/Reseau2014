@@ -1,1 +1,1 @@
-/usr/bin/c++   -I/home/guipaud/include      -L/home/guipaud/lib  CMakeFiles/server.dir/server.cc.o  -o server -rdynamic -Wl,--copy-dt-needed-entries -lnetez 
+/usr/bin/c++   -I/home/kremer/include      -L/home/kremer/lib  CMakeFiles/server.dir/server.cc.o  -o server -rdynamic -Wl,--copy-dt-needed-entries -lnetez 

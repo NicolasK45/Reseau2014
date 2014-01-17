@@ -51,6 +51,9 @@ public:
 	int occupant(){
 		return occ;
 	}
+	void set_occupant(int i){
+		occ=i;
+	}
 
 };
 

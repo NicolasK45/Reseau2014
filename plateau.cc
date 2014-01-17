@@ -5,13 +5,15 @@
 
 class plateau{
 private:
-   // perso players[4];
+   perso players[4];
     cases c[10][10];
     int sortie;
+    int nbjoueur;
 public:
     plateau(){
         sortie=rand()%10;
   //      players=joueurs;
+        nbjoueur=0;
     }
     cases getcase(int i,int j){return c[i][j];}
     bool open_path(int posx,int posy,string direction){
@@ -47,16 +49,171 @@ public:
             c[posx-1][posy].destroy("east");
         }
     }
+    
+    perso get_player(int i){
+        return players[i];
+    }
 
- //   void bouger(int nump, string direction){
-   //     if (openpath(player[nump].getposx(),player[nump].getposy(),direction)){
-     //       if (direction=="north"){
-       //         player[nump].setposy(player[nump].getposy()-1);
-         //   }
-           // if(direction=="south"){
-             //   player[nump].setposy(player[nump].getposy()+1);
-  //          }
-//        }
+    void bouger(int nump, string direction){
+        if (direction=="north"){
+            int occ=c[players[nump].get_posx()][players[nump].get_posy()+1].occupant();
+            if(occ==-1){
+                players[nump].set_posy(players[nump].get_posy()+1);
+            }
+            else{
+                if(players[nump].get_hp()/players[occ].get_damage()>players[occ].get_hp()/players[nump].get_damage()){
+                    players[nump].set_hp(players[nump].get_hp()-(players[nump].get_hp()/players[occ].get_damage())*players[occ].get_damage());
+                    players[occ].set_hp(players[occ].get_maxhp());
+                    players[nump].set_posy(players[nump].get_posy()+1);
+                    c[players[nump].get_posx()][players[nump].get_posy()].set_occupant(nump);
+                    c[players[nump].get_posx()][players[nump].get_posy()-1].set_occupant(-1);
+                    players[occ].set_posy(0);
+                    c[players[occ].get_posx()][players[occ].get_posy()].set_occupant(occ);
+                }
 
-   // }
+
+                if(players[nump].get_hp()/players[occ].get_damage()<players[occ].get_hp()/players[nump].get_damage()){
+                    players[occ].set_hp(players[occ].get_hp()-(players[occ].get_hp()/players[nump].get_damage())*players[nump].get_damage());
+                    players[nump].set_hp(players[nump].get_maxhp());
+                    c[players[nump].get_posx()][players[nump].get_posy()].set_occupant(-1);
+                    players[nump].set_posy(0);
+                    c[players[nump].get_posx()][players[nump].get_posy()].set_occupant(nump);
+                }
+
+                if(players[nump].get_hp()/players[occ].get_damage()==players[occ].get_hp()/players[nump].get_damage()){
+                    players[nump].set_hp(players[nump].get_hp()-(players[nump].get_hp()/players[occ].get_damage()-1)*players[occ].get_damage());
+                    players[occ].set_hp(players[occ].get_maxhp());
+                    players[nump].set_posy(players[nump].get_posy()+1);
+                    c[players[nump].get_posx()][players[nump].get_posy()].set_occupant(nump);
+                    c[players[nump].get_posx()][players[nump].get_posy()-1].set_occupant(-1);
+                    players[occ].set_posy(0);
+                    c[players[occ].get_posx()][players[occ].get_posy()].set_occupant(occ);
+                }
+
+
+
+            }
+        }
+
+
+        if(direction=="south"){
+            int occ=c[players[nump].get_posx()][players[nump].get_posy()-1].occupant();
+            if(occ==-1){
+                players[nump].set_posy(players[nump].get_posy()-1);
+            }
+            else{
+                if(players[nump].get_hp()/players[occ].get_damage()>players[occ].get_hp()/players[nump].get_damage()){
+                    players[nump].set_hp(players[nump].get_hp()-(players[nump].get_hp()/players[occ].get_damage())*players[occ].get_damage());
+                    players[occ].set_hp(players[occ].get_maxhp());
+                    players[nump].set_posy(players[nump].get_posy()-1);
+                    c[players[nump].get_posx()][players[nump].get_posy()].set_occupant(nump);
+                    c[players[nump].get_posx()][players[nump].get_posy()+1].set_occupant(-1);
+                    players[occ].set_posy(0);
+                    c[players[occ].get_posx()][players[occ].get_posy()].set_occupant(occ);
+                }
+
+
+                if(players[nump].get_hp()/players[occ].get_damage()<players[occ].get_hp()/players[nump].get_damage()){
+                    players[occ].set_hp(players[occ].get_hp()-(players[occ].get_hp()/players[nump].get_damage())*players[nump].get_damage());
+                    players[nump].set_hp(players[nump].get_maxhp());
+                    c[players[nump].get_posx()][players[nump].get_posy()].set_occupant(-1);
+                    players[nump].set_posy(0);
+                    c[players[nump].get_posx()][players[nump].get_posy()].set_occupant(nump);
+                }
+
+                if(players[nump].get_hp()/players[occ].get_damage()==players[occ].get_hp()/players[nump].get_damage()){
+                    players[nump].set_hp(players[nump].get_hp()-(players[nump].get_hp()/players[occ].get_damage()-1)*players[occ].get_damage());
+                    players[occ].set_hp(players[occ].get_maxhp());
+                    players[nump].set_posy(players[nump].get_posy()-1);
+                    c[players[nump].get_posx()][players[nump].get_posy()].set_occupant(nump);
+                    c[players[nump].get_posx()][players[nump].get_posy()+1].set_occupant(-1);
+                    players[occ].set_posy(0);
+                    c[players[occ].get_posx()][players[occ].get_posy()].set_occupant(occ);
+                }
+            }
+        }
+        if (direction=="east"){
+            int occ=c[players[nump].get_posx()+1][players[nump].get_posy()].occupant();
+            if(occ==-1){
+                players[nump].set_posx(players[nump].get_posy()+1);
+            }
+            else{
+                if(players[nump].get_hp()/players[occ].get_damage()>players[occ].get_hp()/players[nump].get_damage()){
+                    players[nump].set_hp(players[nump].get_hp()-(players[nump].get_hp()/players[occ].get_damage())*players[occ].get_damage());
+                    players[occ].set_hp(players[occ].get_maxhp());
+                    players[nump].set_posx(players[nump].get_posx()+1);
+                    c[players[nump].get_posx()][players[nump].get_posy()].set_occupant(nump);
+                    c[players[nump].get_posx()-1][players[nump].get_posy()].set_occupant(-1);
+                    players[occ].set_posy(0);
+                    c[players[occ].get_posx()][players[occ].get_posy()].set_occupant(occ);
+                }
+
+
+                if(players[nump].get_hp()/players[occ].get_damage()<players[occ].get_hp()/players[nump].get_damage()){
+                    players[occ].set_hp(players[occ].get_hp()-(players[occ].get_hp()/players[nump].get_damage())*players[nump].get_damage());
+                    players[nump].set_hp(players[nump].get_maxhp());
+                    c[players[nump].get_posx()][players[nump].get_posy()].set_occupant(-1);
+                    players[nump].set_posy(0);
+                    c[players[nump].get_posx()][players[nump].get_posy()].set_occupant(nump);
+                }
+
+                if(players[nump].get_hp()/players[occ].get_damage()==players[occ].get_hp()/players[nump].get_damage()){
+                    players[nump].set_hp(players[nump].get_hp()-(players[nump].get_hp()/players[occ].get_damage()-1)*players[occ].get_damage());
+                    players[occ].set_hp(players[occ].get_maxhp());
+                    players[nump].set_posx(players[nump].get_posx()+1);
+                    c[players[nump].get_posx()][players[nump].get_posy()].set_occupant(nump);
+                    c[players[nump].get_posx()-1][players[nump].get_posy()].set_occupant(-1);
+                    players[occ].set_posy(0);
+                    c[players[occ].get_posx()][players[occ].get_posy()].set_occupant(occ);
+                }
+            }
+        }
+        if(direction=="west"){
+            int occ=c[players[nump].get_posx()-1][players[nump].get_posy()].occupant();
+            if(occ==-1){
+                players[nump].set_posx(players[nump].get_posx()-1);
+            }
+            else{
+                if(players[nump].get_hp()/players[occ].get_damage()>players[occ].get_hp()/players[nump].get_damage()){
+                    players[nump].set_hp(players[nump].get_hp()-(players[nump].get_hp()/players[occ].get_damage())*players[occ].get_damage());
+                    players[occ].set_hp(players[occ].get_maxhp());
+                    players[nump].set_posx(players[nump].get_posx()-1);
+                    c[players[nump].get_posx()][players[nump].get_posy()].set_occupant(nump);
+                    c[players[nump].get_posx()+1][players[nump].get_posy()].set_occupant(-1);
+                    players[occ].set_posy(0);
+                    c[players[occ].get_posx()][players[occ].get_posy()].set_occupant(occ);
+                }
+
+
+                if(players[nump].get_hp()/players[occ].get_damage()<players[occ].get_hp()/players[nump].get_damage()){
+                    players[occ].set_hp(players[occ].get_hp()-(players[occ].get_hp()/players[nump].get_damage())*players[nump].get_damage());
+                    players[nump].set_hp(players[nump].get_maxhp());
+                    c[players[nump].get_posx()][players[nump].get_posy()].set_occupant(-1);
+                    players[nump].set_posy(0);
+                    c[players[nump].get_posx()][players[nump].get_posy()].set_occupant(nump);
+                }
+
+                if(players[nump].get_hp()/players[occ].get_damage()==players[occ].get_hp()/players[nump].get_damage()){
+                    players[nump].set_hp(players[nump].get_hp()-(players[nump].get_hp()/players[occ].get_damage()-1)*players[occ].get_damage());
+                    players[occ].set_hp(players[occ].get_maxhp());
+                    players[nump].set_posy(players[nump].get_posy()-1);
+                    c[players[nump].get_posx()][players[nump].get_posy()].set_occupant(nump);
+                    c[players[nump].get_posx()+1][players[nump].get_posy()].set_occupant(-1);
+                    players[occ].set_posy(0);
+                    c[players[occ].get_posx()][players[occ].get_posy()].set_occupant(occ);
+                }
+            }
+        }
+    }
+
+    bool gagner(int i){
+        return players[i].get_posx()==sortie && players[i].get_posy()==9;
+    }
+
+    void ajoutplayer(perso joueur){
+        players[nbjoueur]=joueur;
+        nbjoueur++;
+        c[joueur.get_posx()][joueur.get_posy()].set_occupant(nbjoueur);
+    }
+
 };

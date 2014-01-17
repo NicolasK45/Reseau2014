@@ -24,7 +24,7 @@ namespace get_out
      }
    
     void do_join(string name_player, string classe_player);
-    //void do_move(string m);
+    void do_move(string m);
     //void do_use(string cap, string direction);
     void do_quit();
     void on_end();
@@ -33,13 +33,12 @@ namespace get_out
 
   map<int,session_on_server *> user;
   map<int,perso> players;
-    
- 
+  plateau plat;
+
   void session_on_server::do_join(string name_player, string classe_player){
     int x;
     if(user.size()==0){
-      cout<<"premier"<<endl;
-      x=0;
+     x=0;
     }
     else if(user.size()==1){
       x=9;
@@ -88,28 +87,69 @@ namespace get_out
 	player.set_posy(0);
       }
 
+
       std::map<int,session_on_server *>::iterator it;
       
       bool ok=true;
       
       if(user.size()>0){
-	cout<<"debut"<<endl;
 	it=user.begin();
 	while(it!=user.end() && ok){
 	  if (it->second==this){proto.ERR("ERROR, Already a session");ok=false;}
-	  else {cout<<"boucle"<<endl;++it;}
+	  else {++it;}
 	}
-	cout<<"fin"<<endl;
+
       }
       if (it == user.end() || user.size()==0){
 	user[user.size()+1]=this;
 	players[players.size()+1]=player;
+  plat.ajoutplayer(player);
       }	
      for (it=user.begin();it!=user.end();it++){
 	  it->second->proto.event(name_player+" has join the game.");
      }
     } 
   }
+
+
+   void session_on_server::do_move(string direction){
+    auto au=user.begin();
+    bool ok=false;
+    while(au!=user.end() && ok){
+      if (au->second==this){ok=false;}
+      else {++au;}
+  }
+    if ((plat.get_player(au->first).get_posy()==0 && direction=="south")||(plat.get_player(au->first).get_posy()==9 && direction=="north")||(plat.get_player(au->first).get_posx()==0 && direction=="west")||(plat.get_player(au->first).get_posx()==9 && direction=="east")){
+      au->second->proto.ERR("Vous etes au bord du plateau");
+    }
+    else{
+      plat.bouger(au->first,direction);
+      if (plat.gagner(au->first)){
+        std::map<int,session_on_server *>::iterator it;
+        while (it != user.end()){
+          if (it->second==this){
+            it->second->proto.win();
+          }
+          else{it->second->proto.lose();}
+          ++it;
+        }
+      }
+    }
+  }
+
+ /* void session_on_server::do_use(string cap){
+    auto au=players.find(this);
+    if(cap=="life_potion"){
+      if(au->second.get_hp()<au->second.get_maxhp()){
+        if (au->second.use_inventory(cap)){
+          au->second.set_hp(au->second.get_hp()+1);
+        }
+        else proto.ERR("plus d'objet dans l'inventaire");
+      }
+      else proto.ERR("toute la vie");
+    }
+    else proto.ERR("pas une capacité");
+  }*/
   
   void session_on_server::do_quit()
   {

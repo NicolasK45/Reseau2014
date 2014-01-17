@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/guipaud/network/PROJET/Reseau2014/case.cc
+/home/kremer/2eannee/Reseau/S3/network/projet4/case.cc
 iostream
 -
 cstdlib
@@ -14,25 +14,25 @@ cstdlib
 ctime
 -
 
-/home/guipaud/network/PROJET/Reseau2014/client.cc
+/home/kremer/2eannee/Reseau/S3/network/projet4/client.cc
 proto.hh
-/home/guipaud/network/PROJET/Reseau2014/proto.hh
+/home/kremer/2eannee/Reseau/S3/network/projet4/proto.hh
 iostream
 -
 cstdlib
 -
 netez/command_processor.hh
-/home/guipaud/network/PROJET/Reseau2014/netez/command_processor.hh
+/home/kremer/2eannee/Reseau/S3/network/projet4/netez/command_processor.hh
 boost/lexical_cast.hpp
 -
 
-/home/guipaud/network/PROJET/Reseau2014/perso.cc
+/home/kremer/2eannee/Reseau/S3/network/projet4/perso.cc
 iostream
 -
 map
 -
 
-/home/guipaud/network/PROJET/Reseau2014/plateau.cc
+/home/kremer/2eannee/Reseau/S3/network/projet4/plateau.cc
 iostream
 -
 cstdlib
@@ -40,15 +40,15 @@ cstdlib
 ctime
 -
 case.cc
-/home/guipaud/network/PROJET/Reseau2014/case.cc
+/home/kremer/2eannee/Reseau/S3/network/projet4/case.cc
 
-/home/guipaud/network/PROJET/Reseau2014/proto.hh
+/home/kremer/2eannee/Reseau/S3/network/projet4/proto.hh
 netez.hh
-/home/guipaud/network/PROJET/Reseau2014/netez.hh
+/home/kremer/2eannee/Reseau/S3/network/projet4/netez.hh
 perso.cc
-/home/guipaud/network/PROJET/Reseau2014/perso.cc
+/home/kremer/2eannee/Reseau/S3/network/projet4/perso.cc
 plateau.cc
-/home/guipaud/network/PROJET/Reseau2014/plateau.cc
+/home/kremer/2eannee/Reseau/S3/network/projet4/plateau.cc
 string
 -
 

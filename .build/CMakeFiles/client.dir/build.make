@@ -35,10 +35,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/guipaud/network/PROJET/Reseau2014
+CMAKE_SOURCE_DIR = /home/kremer/2eannee/Reseau/S3/network/projet4
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/guipaud/network/PROJET/Reseau2014/.build
+CMAKE_BINARY_DIR = /home/kremer/2eannee/Reseau/S3/network/projet4/.build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/client.dir/depend.make
@@ -51,17 +51,17 @@ include CMakeFiles/client.dir/flags.make
 
 CMakeFiles/client.dir/client.cc.o: CMakeFiles/client.dir/flags.make
 CMakeFiles/client.dir/client.cc.o: ../client.cc
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/guipaud/network/PROJET/Reseau2014/.build/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/kremer/2eannee/Reseau/S3/network/projet4/.build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/client.dir/client.cc.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/client.dir/client.cc.o -c /home/guipaud/network/PROJET/Reseau2014/client.cc
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/client.dir/client.cc.o -c /home/kremer/2eannee/Reseau/S3/network/projet4/client.cc
 
 CMakeFiles/client.dir/client.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/client.dir/client.cc.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/guipaud/network/PROJET/Reseau2014/client.cc > CMakeFiles/client.dir/client.cc.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/kremer/2eannee/Reseau/S3/network/projet4/client.cc > CMakeFiles/client.dir/client.cc.i
 
 CMakeFiles/client.dir/client.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/client.dir/client.cc.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/guipaud/network/PROJET/Reseau2014/client.cc -o CMakeFiles/client.dir/client.cc.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/kremer/2eannee/Reseau/S3/network/projet4/client.cc -o CMakeFiles/client.dir/client.cc.s
 
 CMakeFiles/client.dir/client.cc.o.requires:
 .PHONY : CMakeFiles/client.dir/client.cc.o.requires
@@ -97,6 +97,6 @@ CMakeFiles/client.dir/clean:
 .PHONY : CMakeFiles/client.dir/clean
 
 CMakeFiles/client.dir/depend:
-	cd /home/guipaud/network/PROJET/Reseau2014/.build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/guipaud/network/PROJET/Reseau2014 /home/guipaud/network/PROJET/Reseau2014 /home/guipaud/network/PROJET/Reseau2014/.build /home/guipaud/network/PROJET/Reseau2014/.build /home/guipaud/network/PROJET/Reseau2014/.build/CMakeFiles/client.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/kremer/2eannee/Reseau/S3/network/projet4/.build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/kremer/2eannee/Reseau/S3/network/projet4 /home/kremer/2eannee/Reseau/S3/network/projet4 /home/kremer/2eannee/Reseau/S3/network/projet4/.build /home/kremer/2eannee/Reseau/S3/network/projet4/.build /home/kremer/2eannee/Reseau/S3/network/projet4/.build/CMakeFiles/client.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/client.dir/depend
 

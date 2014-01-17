@@ -1,2 +1,2 @@
-/home/guipaud/network/PROJET/Reseau2014/.build/CMakeFiles/client.dir
-/home/guipaud/network/PROJET/Reseau2014/.build/CMakeFiles/server.dir
+/home/kremer/2eannee/Reseau/S3/network/projet4/.build/CMakeFiles/client.dir
+/home/kremer/2eannee/Reseau/S3/network/projet4/.build/CMakeFiles/server.dir
