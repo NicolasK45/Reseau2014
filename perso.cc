@@ -8,13 +8,14 @@ class perso{
   int posx, posy;
   string name;
   string class_perso;
-  map<string,int> inventory;
-  int hp, maxhp;
+  //map<string,int> inventory;
+  int hp;
+  int maxhp;
   int damage;
 public:
   perso(){
-    name="";
-    class_perso="";
+    name="nameless";
+    class_perso="aucune";
     maxhp=0;
     hp=0;
     damage=0;
@@ -22,15 +23,7 @@ public:
     posy=0;
   }
 
-  perso(string name,string class_perso,int maxhp,int damage, int x, int y){
-    this->name=name;
-    this->class_perso=class_perso;
-    this->maxhp=maxhp;
-    this->hp=maxhp;
-    this->damage=damage;
-    posx=x;
-    posy=y;
-  }
+  /*perso(string name,string class_perso,int maxhp,int damage, int x, int y):posx(x),posy(y),name(name),class_perso(class_perso),hp(maxhp),maxhp(maxhp),damage(damage){}*/
 
   int get_posx()const{
     return posx;
@@ -68,9 +61,9 @@ public:
     class_perso=new_classe;
   }
 
-  void set_inventory(string ob, int number){
+  /*void set_inventory(string ob, int number){
     inventory[ob]=number;
-  }
+    }*/
 
   void set_posx(int new_posx){
     posx=new_posx;
@@ -86,6 +79,7 @@ public:
 
   void set_maxhp(int new_maxhp){
     maxhp=new_maxhp;
+    hp=maxhp;
   }
 
 
@@ -93,7 +87,7 @@ public:
     hp=new_hp;
   }
 
-  bool use_inventory(string ob){
+  /*bool use_inventory(string ob){
     map<string,int>:: iterator it;
     it=inventory.find(ob);
     if(it!=inventory.end()){
@@ -103,10 +97,11 @@ public:
       }
     }
     return false;
-  }
-  bool operator==(perso p){
+    }*/
+
+  /*bool operator==(perso p){
       return this->name==p.name;
-  }
+      }*/
 
 };
 
