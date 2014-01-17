@@ -88,6 +88,41 @@ clean: CMakeFiles/client.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/server.dir
+
+# All Build rule for target.
+CMakeFiles/server.dir/all:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/depend
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/guipaud/network/PROJET/Reseau2014/.build/CMakeFiles  2
+	@echo "Built target server"
+.PHONY : CMakeFiles/server.dir/all
+
+# Include target in all.
+all: CMakeFiles/server.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/server.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/guipaud/network/PROJET/Reseau2014/.build/CMakeFiles 1
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/server.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/guipaud/network/PROJET/Reseau2014/.build/CMakeFiles 0
+.PHONY : CMakeFiles/server.dir/rule
+
+# Convenience name for target.
+server: CMakeFiles/server.dir/rule
+.PHONY : server
+
+# clean rule for target.
+CMakeFiles/server.dir/clean:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/clean
+.PHONY : CMakeFiles/server.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/server.dir/clean
+.PHONY : clean
+
+#=============================================================================
 # Special targets to cleanup operation of make.
 
 # Special rule to run CMake to check the build system integrity.

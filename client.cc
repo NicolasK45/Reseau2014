@@ -19,11 +19,12 @@ namespace get_out
       proto.left.sig_recv.connect(EZMETHOD(this,do_left));
       proto.ERR.sig_recv.connect(EZMETHOD(this,do_ERR));
       proto.OK.sig_recv.connect(EZMETHOD(this,do_OK));
+      proto.event.sig_recv.connect(EZMETHOD(this,do_event));
       proto.quit.sig_recv.connect(EZMETHOD(this,do_quit));
     }
 
     void on_begin(){
-      cout<<"Enter 'nick' and then your nickname"<<endl;
+      cout<<"Enter 'nick' and then your nickname and then your class (warrior, mage, ranger)"<<endl;
     }
 
     void do_OK(){cout<<"Your message have been transmited"<<endl;
@@ -32,6 +33,8 @@ namespace get_out
     void do_ERR(string r){cout<<"Error : "<<r<<endl;}
     
     void do_left(string p){cout<<p<<" left the the game."<<endl;}
+
+    void do_event(string e){cout<<e<<endl;}
 
     void do_quit(){finish();}
   };
@@ -44,14 +47,33 @@ namespace get_out
     
     shell(session_on_client& c):client(c)
     {
+      register_command("nick", &shell::cmd_nick);
       register_command("move", &shell::cmd_move);
       register_command("use", &shell::cmd_use);
       register_command("quit",&shell::cmd_quit);
     }
-   
- 
+  
     void wrong_args(const char*cmd,int n)
     {cerr<<cmd<<" expects "<< n<< " arguments"<<endl;}
+
+    void cmd_nick(command_argv& argv){
+      if(argv.size()!=2) wrong_args("nick",2);
+      else{
+	string n=lexical_cast<string>(argv[0]);
+	string p=lexical_cast<string>(argv[1]);
+	bool fin=false;
+	while(!fin){
+	  if(p=="warrior" || p=="mage" || p=="ranger"){
+	     client.proto.join(n,p);
+	     fin=true;
+	  }
+	  else{
+	    cout<<"Votre nom de classe n'est pas bon, réécrivez le"<<endl;
+	    cin>>p;
+	  }
+	}
+      }
+    }
 
     void cmd_move(command_argv& argv){
       if (argv.size()!=1) wrong_args("move",1);

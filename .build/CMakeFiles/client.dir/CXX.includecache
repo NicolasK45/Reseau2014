@@ -17,8 +17,6 @@ ctime
 /home/guipaud/network/PROJET/Reseau2014/client.cc
 proto.hh
 /home/guipaud/network/PROJET/Reseau2014/proto.hh
-plateau.cc
-/home/guipaud/network/PROJET/Reseau2014/plateau.cc
 iostream
 -
 cstdlib
@@ -49,6 +47,8 @@ netez.hh
 /home/guipaud/network/PROJET/Reseau2014/netez.hh
 perso.cc
 /home/guipaud/network/PROJET/Reseau2014/perso.cc
+plateau.cc
+/home/guipaud/network/PROJET/Reseau2014/plateau.cc
 string
 -
 
